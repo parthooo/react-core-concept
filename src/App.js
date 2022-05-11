@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 /*
 function App() {
   return (
@@ -58,13 +59,26 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello React App</p>
 
+        {
+          nayoks.map( nayok => <li>{nayok}</li>)
+        }
+
+        {
+          products.map( product => <li>{product.name}</li>)
+        }
+
         <Product product = {products[0]}></Product>
         <Product product = {products[1]}></Product>
         <Product product = {products[2]}></Product>
 
+        {
+          products.map( pd => <Product product={pd}></Product>)
+        }
 
         <Person name="Munna" job="Software Eng"></Person>
         <Person name="Masum" job="Jr. Software Eng"></Person>
+
+        <Counter></Counter>
       </header>
 
     </div>
@@ -97,6 +111,20 @@ function Person(props) {
     <div style={{border: '2px solid red', margin:'12px', padding: '10px', float:'left', display:'block'}}>
       <h3>Name: {props.name} </h3>
       <p>Profession: {props.job}</p>
+    </div>
+  )
+}
+
+function Counter() {
+  const [count, setCount] = useState(10);
+  const handleIncrease = () => {
+    const newCount = count + 1;
+    setCount(newCount);
+  };
+  return(
+    <div>
+      <h1>Count: {count} </h1>
+      <button onClick={handleIncrease}>Increase</button>
     </div>
   )
 }
