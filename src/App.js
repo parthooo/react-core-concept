@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 /*
 function App() {
   return (
@@ -79,6 +79,8 @@ function App() {
         <Person name="Masum" job="Jr. Software Eng"></Person>
 
         <Counter></Counter>
+
+        <Users></Users>
       </header>
 
     </div>
@@ -116,7 +118,7 @@ function Person(props) {
 }
 
 function Counter() {
-  const [count, setCount] = useState(10);
+  const [count, setCount] = useState(0);
   const handleIncrease = () => {
     const newCount = count + 1;
     setCount(newCount);
@@ -124,7 +126,28 @@ function Counter() {
   return(
     <div>
       <h1>Count: {count} </h1>
-      <button onClick={handleIncrease}>Increase</button>
+        <button onClick={handleIncrease}>Increase</button>
+        {/* Decrease countere tried by single line function by using event handler */}
+        <button onClick={() => setCount(count -1)}>Decrease</button>
+    </div>
+  )
+}
+
+function Users() {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(a => a.json())
+    .then(b => setUsers(b));
+  }, [])
+  return(
+    <div>
+      <h3>Dynamic Users: {users.length}</h3>
+      <ul>
+        {
+          users.map(user => <li>{user.name}</li>)
+        }
+      </ul>
     </div>
   )
 }
